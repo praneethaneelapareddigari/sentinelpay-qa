@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run API tests
+        run: |
+          mkdir -p reports
+          pytest -q api_tests --html=reports/pytest_api.html --self-contained-html || true
+      - name: (Optional) Run UI tests
+        if: ${{ false }} # flip to true when drivers available
+        run: |
+          pytest -q selenium/tests/test_checkout.py -m "ui" --html=reports/pytest_ui.html --self-contained-html
+      - name: Install Newman
+        run: |
+          sudo npm i -g newman
+      - name: Run Postman collection
+        run: |
+          bash postman/run_newman.sh || true
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports

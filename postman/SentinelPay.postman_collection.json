@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "SentinelPay",
+    "_postman_id": "e71ef1f1-1111-4aa0-9b77-demo",
+    "description": "Payments API demo covering intent \u2192 confirm \u2192 refund flows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Payment Intent",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{API_KEY}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/post",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "post"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"amount\": 1999, \"currency\": \"{{CURRENCY}}\", \"idempotency_key\": \"{{$guid}}\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('status 200', ()=> pm.response.code===200);",
+              "pm.test('has json', ()=> _.isObject(pm.response.json()));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Confirm Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{API_KEY}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/status/200",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "status",
+            "200"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('status 200', ()=> pm.response.code===200);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Refund",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{API_KEY}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/anything/refund",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "anything",
+            "refund"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"reason\": \"customer_request\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('status 200', ()=> pm.response.code===200);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}
