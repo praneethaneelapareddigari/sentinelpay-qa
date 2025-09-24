@@ -21,7 +21,7 @@
 
 ---
 
-## 📦 Repository layout
+##  Repository layout
 
 ```
 sentinelpay-qa/
@@ -56,7 +56,7 @@ sentinelpay-qa/
 
 ---
 
-## 🚀 Quick start
+##  Quick start
 
 ```bash
 # 1) Create venv & install
@@ -91,7 +91,7 @@ bash security/zap_baseline.sh https://httpbin.org
 
 ---
 
-## 🧪 API testing (Pytest)
+##  API testing (Pytest)
 
 - Uses `requests` with fixtures, Faker for payloads, and env‑driven base URL.  
 - Validates: happy paths, input validation, idempotency keys, currency rules, and taxation fields.
@@ -103,7 +103,7 @@ pytest -q api_tests -m "api" --html=reports/pytest_api.html --self-contained-htm
 
 ---
 
-## 🌐 Postman + Newman
+##  Postman + Newman
 
 - Collection models `/payments/*` workflows (create intent → confirm → refund).  
 - Chaos toggles: timeouts, throttling, 4xx/5xx injection (pre‑request scripts).
@@ -117,7 +117,7 @@ bash postman/run_newman.sh
 
 ---
 
-## 🖥️ Selenium + Pytest
+##  Selenium + Pytest
 
 - Page‑object‑lite approach inside `tests/test_checkout.py`  
 - Marks: `@pytest.mark.ui` so UI can be toggled in CI
@@ -126,7 +126,7 @@ bash postman/run_newman.sh
 
 ---
 
-## 🛡️ Security – OWASP ZAP
+##  Security – OWASP ZAP
 
 - Baseline scan to surface passive issues: headers, cookies, TLS, XSS hints  
 - Attach ZAP HTML report to CI artifacts; ticket p0 for High/Medium
@@ -135,7 +135,7 @@ bash postman/run_newman.sh
 
 ---
 
-## 🧾 PCI‑DSS Controls Checklist (selected)
+##  PCI‑DSS Controls Checklist (selected)
 
 - **No PAN in logs**; redaction in requests/responses  
 - **TLS 1.2+** only; HSTS on  
@@ -146,7 +146,7 @@ bash postman/run_newman.sh
 
 ---
 
-## 📊 JIRA workflow
+##  JIRA workflow
 
 - Defect template in `/jira/bug_report.md` (with repro steps, severity, env, evidence)  
 - Link test case IDs and report URLs for traceability; close with verification proof
@@ -155,7 +155,7 @@ bash postman/run_newman.sh
 
 ---
 
-## 🔄 CI
+##  CI
 
 GitHub Actions pipeline runs API + (optional) UI + Newman; uploads HTML reports.
 
@@ -165,7 +165,7 @@ GitHub Actions pipeline runs API + (optional) UI + Newman; uploads HTML reports.
 
 ---
 
-## 📚 Reports & Evidence
+##  Reports & Evidence
 
 - `reports/pytest_api.html`, `reports/pytest_ui.html` (generated on run)  
 - `reports/zap.html` after `zap_baseline.sh`  
@@ -173,7 +173,7 @@ GitHub Actions pipeline runs API + (optional) UI + Newman; uploads HTML reports.
 
 ---
 
-## ✅ Done / Outcomes
+##  Done / Outcomes
 
 - Reduced UAT backlog by **~30%** through early defect discovery  
 - Achieved **100% PCI‑DSS** control coverage for scoped checks in baseline  
@@ -181,7 +181,7 @@ GitHub Actions pipeline runs API + (optional) UI + Newman; uploads HTML reports.
 
 ---
 
-## 🧩 Environment
+##  Environment
 
 Create `.env` (optional):
 ```
